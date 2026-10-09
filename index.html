@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Пилотская подготовка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Fira+Sans+Extra+Condensed:wght@500;600;700;800&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: one column (max 720px) under sticky tabs. The timer is a pit board that stays dark in both themes.
+   Session structure is drawn as tyre-stint bars: hard = walk, medium = run, soft = strides, inter = warm-up and cool-down. */
+:root{
+  --bg:#F1F2EF; --surface:#FFFFFF; --ink:#16191C; --muted:#586066; --line:#D7DBD6;
+  --accent:#C8202A; --accent-ink:#FFFFFF; --focus:#1F6FD1; --ok:#1C8448;
+  --hard:#A1A9AF; --medium:#D49C00; --soft:#C8202A; --inter:#1C8448;
+  --chip:#E7EAE5; --roundel-bg:#16191C; --roundel-ink:#FFFFFF;
+  --board:#111315; --board-ink:#F4F4F0; --board-dim:#8E969C;
+  --b-run:#F6C431; --b-walk:#F4F4F0; --b-fast:#FF4C52; --b-warm:#45C677;
+  --lamp-housing:#040505; --lamp-off:#2C1618; --lamp-on:#FF2E2E; --lamp-glow:rgba(255,46,46,.6); --lamp-ring:rgba(0,0,0,.55);
+  --flag-a:#F4F4F0; --flag-b:#111315;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Fira Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-data:"Fira Sans Extra Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1012; --surface:#171A1D; --ink:#ECEEEC; --muted:#9AA2A8; --line:#2A2F33;
+    --accent:#E0333B; --accent-ink:#FFFFFF; --focus:#62A6FF; --ok:#3FBF72;
+    --hard:#E4E7E8; --medium:#F2C230; --soft:#FF4C52; --inter:#3FBF72;
+    --chip:#22272B; --roundel-bg:#ECEEEC; --roundel-ink:#0E1012;
+    --board:#08090A; --flag-b:#08090A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1012; --surface:#171A1D; --ink:#ECEEEC; --muted:#9AA2A8; --line:#2A2F33;
+  --accent:#E0333B; --accent-ink:#FFFFFF; --focus:#62A6FF; --ok:#3FBF72;
+  --hard:#E4E7E8; --medium:#F2C230; --soft:#FF4C52; --inter:#3FBF72;
+  --chip:#22272B; --roundel-bg:#ECEEEC; --roundel-ink:#0E1012;
+  --board:#08090A; --flag-b:#08090A;
+  color-scheme:dark;
+}
+
+html{ -webkit-text-size-adjust:100%; }
+[hidden]{ display:none !important; }
+body{ background:var(--bg); color:var(--ink); font:400 1rem/1.55 var(--f-body); }
+.app{ max-width:720px; margin:0 auto; padding-inline:16px; padding-block:0 56px; }
+button, select, input{ font:inherit; }
+:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+[id]{ scroll-margin-top:76px; }
+
+/* tabs */
+.tabs{ position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; display:flex; gap:4px;
+  margin-inline:-16px; padding:10px 16px; background:var(--bg); border-bottom:1px solid var(--line); }
+.tab{ flex:1 1 auto; padding:11px 6px; border:0; border-radius:10px; background:transparent; color:var(--muted);
+  font:600 clamp(.82rem, 3.6vw, .95rem)/1 var(--f-data); letter-spacing:.05em; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
+.tab:hover{ color:var(--ink); }
+.tab[aria-selected="true"]{ background:var(--ink); color:var(--bg); }
+
+/* type */
+.eyebrow, .label{ margin:0; font:600 .78rem/1.2 var(--f-data); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+h1{ margin:0; font:700 clamp(1.55rem, 6.4vw, 2.35rem)/1.1 var(--f-display); letter-spacing:-.01em; text-wrap:balance; }
+.lede{ margin:0; color:var(--muted); max-width:62ch; }
+.note{ margin:0; color:var(--muted); font-size:.95rem; }
+.note.small{ font-size:.86rem; }
+.intro{ display:grid; gap:10px; padding-block:24px 6px; }
+.view-head{ display:grid; gap:6px; padding-block:24px 8px; }
+.section-title{ margin:0; font:700 clamp(1.2rem, 5vw, 1.55rem)/1.15 var(--f-display); text-wrap:balance; }
+.view > .section-title{ margin:34px 0 10px; }
+.prose p, .view > p{ margin:0 0 12px; max-width:65ch; }
+
+/* chips, pills, buttons */
+.tag{ padding:6px 9px; border:1px solid var(--line); border-radius:999px; background:var(--chip); color:var(--ink);
+  font:600 .8rem/1 var(--f-data); letter-spacing:.05em; text-transform:uppercase; cursor:pointer; }
+.tag:hover{ border-color:var(--ink); }
+.pill{ padding:5px 8px; border-radius:999px; background:var(--accent); color:var(--accent-ink);
+  font:700 .72rem/1 var(--f-data); letter-spacing:.08em; text-transform:uppercase; }
+.btn{ min-height:48px; padding:13px 16px; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--ink);
+  font-weight:600; line-height:1.15; cursor:pointer; }
+.btn:hover:not(:disabled){ border-color:var(--ink); }
+.btn:disabled{ opacity:.45; cursor:not-allowed; }
+.btn.primary{ min-height:56px; border-color:transparent; background:var(--accent); color:var(--accent-ink);
+  font:700 1.2rem/1 var(--f-data); letter-spacing:.08em; text-transform:uppercase; }
+.btn.primary:hover:not(:disabled){ border-color:transparent; filter:brightness(1.06); }
+.btn.wide{ width:100%; }
+.btn.armed{ border-color:var(--accent); color:var(--accent); }
+
+/* tyre-stint bars */
+.bar{ display:flex; gap:2px; height:12px; border-radius:4px; overflow:hidden; }
+.bar i{ flex:1 1 0; min-width:2px; }
+.bar.mini{ height:6px; gap:1px; border-radius:3px; }
+.t-warm, .t-cool{ background:var(--inter); }
+.t-run{ background:var(--medium); }
+.t-walk{ background:var(--hard); }
+.t-fast{ background:var(--soft); }
+.board .t-warm, .board .t-cool{ background:var(--b-warm); }
+.board .t-run{ background:var(--b-run); }
+.board .t-walk{ background:var(--b-walk); }
+.board .t-fast{ background:var(--b-fast); }
+
+/* next session card */
+.next{ display:grid; gap:16px; margin-block:12px 18px; padding:18px; background:var(--surface); border:1px solid var(--line); border-radius:18px; }
+.next-body{ display:grid; gap:10px; }
+.next-body h2{ margin:0; font:700 clamp(1.15rem, 4.8vw, 1.45rem)/1.2 var(--f-display); text-wrap:balance; }
+.next-text{ margin:0; font:600 1.2rem/1.3 var(--f-data); letter-spacing:.01em; }
+.next-meta{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; color:var(--muted); font-size:.92rem; }
+.next-body .btn.primary{ margin-top:4px; }
+.progress{ display:grid; gap:8px; padding-top:14px; border-top:1px solid var(--line); }
+.progress-row{ display:grid; gap:8px; }
+.progress-text{ font:700 1.05rem/1 var(--f-data); font-variant-numeric:tabular-nums; }
+.ticks{ display:flex; gap:3px; }
+.ticks i{ flex:1 1 0; min-width:4px; max-width:16px; height:14px; border:1px solid var(--line); border-radius:2px; background:var(--chip); }
+.ticks i.on{ background:var(--ok); border-color:var(--ok); }
+.ticks i:nth-child(3n):not(:last-child){ margin-right:5px; }
+.link-btn{ justify-self:start; padding:0; border:0; background:none; color:var(--ink); font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.gh{ display:grid; gap:10px; }
+.gh-form{ display:grid; gap:8px; }
+.gh-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.gh-row input{ flex:1 1 200px; min-width:0; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:var(--bg); color:var(--ink); font:500 .95rem/1.2 var(--f-body); }
+.gh-on{ display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; }
+.gh a{ color:var(--ink); }
+
+.how{ display:grid; gap:10px; }
+.how p{ margin:0; max-width:65ch; }
+.legend{ display:flex; flex-wrap:wrap; gap:6px 16px; margin:0; padding:0; list-style:none; font:600 .92rem/1.2 var(--f-data); letter-spacing:.02em; }
+.legend li{ display:inline-flex; align-items:center; gap:7px; }
+.legend i{ width:22px; height:10px; border-radius:3px; }
+
+/* your week */
+.myweek{ display:grid; gap:12px; margin-block:4px 22px; }
+.myweek .week-head{ align-items:center; }
+.myweek h2{ margin:0; font:600 1.02rem/1.2 var(--f-display); }
+.days{ display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:6px; margin:0; padding:0; list-style:none; }
+.day{ display:grid; justify-items:center; gap:3px; min-width:0; padding:9px 2px; border:1px dashed var(--line); border-radius:10px; }
+.day b{ font:700 .95rem/1 var(--f-data); letter-spacing:.04em; text-transform:uppercase; }
+.day span{ font:600 .78rem/1.1 var(--f-data); color:var(--muted); font-variant-numeric:tabular-nums; }
+.day.run{ background:var(--accent); border:1px solid var(--accent); color:var(--accent-ink); }
+.day.run span{ color:var(--accent-ink); }
+.day.uni{ border-style:solid; background:repeating-linear-gradient(135deg, var(--chip) 0 5px, transparent 5px 10px); }
+.day.today{ outline:2px solid var(--ink); outline-offset:2px; }
+.plain.mw-notes{ margin:0; }
+.slot{ display:flex; align-items:baseline; gap:8px; margin:0; font-weight:600; }
+.slot::before{ content:""; flex:none; width:9px; height:9px; border-radius:50%; background:var(--ok); transform:translateY(-1px); }
+.slot.now::before{ background:var(--accent); }
+.slot.missed::before{ background:var(--medium); }
+
+/* weeks */
+.week{ padding-block:22px 2px; }
+.week-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.week h2{ margin:0; font:600 1.02rem/1.2 var(--f-display); }
+.week-count{ font:700 .95rem/1 var(--f-data); color:var(--muted); font-variant-numeric:tabular-nums; }
+.week-note{ margin:6px 0 8px; color:var(--muted); font-size:.95rem; max-width:65ch; }
+.sessions{ margin:0; padding:0; list-style:none; }
+.session{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding-block:12px; border-top:1px solid var(--line); }
+.chk{ width:22px; height:22px; margin:0; accent-color:var(--ok); cursor:pointer; }
+.s-main{ display:grid; gap:6px; min-width:0; }
+.s-title{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; }
+.s-name{ font-weight:600; line-height:1.2; }
+.s-text{ font:500 1.02rem/1.3 var(--f-data); letter-spacing:.01em; }
+.s-side{ display:grid; justify-items:end; gap:6px; }
+.s-dur{ font:700 1rem/1 var(--f-data); font-variant-numeric:tabular-nums; }
+.s-date{ font:600 .82rem/1 var(--f-data); color:var(--ok); font-variant-numeric:tabular-nums; }
+.play{ display:grid; place-items:center; width:40px; height:40px; padding:0; border:1px solid var(--line); border-radius:50%;
+  background:var(--surface); color:var(--ink); cursor:pointer; }
+.play:hover{ border-color:var(--ink); }
+.session.is-next .play{ border-color:transparent; background:var(--accent); color:var(--accent-ink); }
+.session.is-done .s-name, .session.is-done .s-text{ color:var(--muted); }
+
+/* timer */
+.timer-pick{ display:grid; gap:6px; padding-top:18px; }
+select{ width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--ink); }
+select:disabled{ opacity:.6; }
+.board{ position:relative; display:grid; gap:10px; margin-top:14px; padding:16px 18px 18px; overflow:hidden;
+  background:var(--board); color:var(--board-ink); border-radius:20px; --phase:var(--b-warm); }
+.board[data-type="run"]{ --phase:var(--b-run); }
+.board[data-type="walk"]{ --phase:var(--b-walk); }
+.board[data-type="fast"]{ --phase:var(--b-fast); }
+.board[data-state="done"]{ --phase:var(--board-ink); padding-top:42px; }
+.board[data-state="done"]::before{ content:""; position:absolute; inset:0 0 auto 0; height:24px;
+  background:repeating-conic-gradient(var(--flag-a) 0 25%, var(--flag-b) 0 50%) 0 0 / 24px 24px; }
+.b-title{ margin:0; font:600 .82rem/1.2 var(--f-data); letter-spacing:.12em; text-transform:uppercase; color:var(--board-dim); }
+.lights{ display:flex; gap:clamp(8px, 2.6vw, 12px); justify-self:center; padding:10px 14px; background:var(--lamp-housing); border-radius:14px; }
+.lights span{ width:clamp(26px, 8.5vw, 40px); aspect-ratio:1; max-width:100%; border-radius:50%; background:var(--lamp-off);
+  box-shadow:inset 0 0 0 3px var(--lamp-ring); transition:background .08s, box-shadow .08s; }
+.lights span.on{ background:var(--lamp-on); box-shadow:inset 0 0 0 3px var(--lamp-ring), 0 0 22px var(--lamp-glow); }
+.b-top{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 12px; }
+.b-phase{ font:800 clamp(1.7rem, 8vw, 2.6rem)/1 var(--f-data); letter-spacing:.03em; text-transform:uppercase; color:var(--phase); }
+.b-lap{ font:700 clamp(.95rem, 3.6vw, 1.15rem)/1 var(--f-data); letter-spacing:.08em; text-transform:uppercase; color:var(--board-dim); font-variant-numeric:tabular-nums; }
+.b-time{ font:800 clamp(5.2rem, 28vw, 10rem)/.92 var(--f-data); font-variant-numeric:tabular-nums; color:var(--board-ink); }
+.board[data-state="paused"] .b-time{ opacity:.5; }
+.b-sub{ margin:0; color:var(--board-ink); opacity:.86; }
+.b-next{ margin:0; font:600 1.08rem/1.25 var(--f-data); letter-spacing:.02em; }
+.b-label{ margin-right:6px; font:600 .78rem/1 var(--f-data); letter-spacing:.12em; text-transform:uppercase; color:var(--board-dim); }
+.b-track{ position:relative; margin-top:6px; }
+.b-track .bar{ height:14px; }
+.b-marker{ position:absolute; top:-5px; bottom:-5px; left:0; width:3px; margin-left:-1.5px; border-radius:2px;
+  background:var(--board-ink); box-shadow:0 0 0 2px var(--board); }
+.b-totals{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 12px; font:700 1.05rem/1 var(--f-data); font-variant-numeric:tabular-nums; }
+.controls{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.controls .primary{ grid-column:1 / -1; }
+#timerNote{ margin-top:12px; min-height:2.6em; }
+.opts{ display:grid; gap:8px; margin:12px 0 0; padding:0; border:0; }
+.opt-row{ display:flex; flex-wrap:wrap; gap:8px 10px; }
+.opt{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--line); border-radius:999px;
+  background:var(--surface); font-weight:500; cursor:pointer; }
+.opt input{ width:18px; height:18px; margin:0; accent-color:var(--ink); }
+.opt:has(input:disabled){ opacity:.5; cursor:not-allowed; }
+.timer-tips{ display:grid; gap:6px; margin-top:12px; }
+
+/* exercise blocks */
+.block{ margin-block:16px; padding:18px; background:var(--surface); border:1px solid var(--line); border-radius:18px; }
+.block-head{ display:flex; align-items:center; gap:14px; }
+.roundel{ flex:none; display:grid; place-items:center; width:52px; height:52px; border-radius:50%;
+  background:var(--roundel-bg); color:var(--roundel-ink); font:700 1.45rem/1 var(--f-display); }
+.block-head h3{ margin:0; font:700 1.1rem/1.2 var(--f-display); }
+.block-meta{ margin:4px 0 0; color:var(--muted); font-size:.9rem; }
+.ex-list{ margin:14px 0 0; padding:0; list-style:none; counter-reset:ex; }
+.ex-list > li{ counter-increment:ex; display:grid; grid-template-columns:1.6rem minmax(0,1fr); gap:4px 10px; padding-block:12px; border-top:1px solid var(--line); }
+.ex-list > li::before{ content:counter(ex); grid-column:1; grid-row:1 / span 3; font:800 1.2rem/1.25 var(--f-data); color:var(--muted); }
+.ex-list > li > *{ grid-column:2; }
+.ex-head{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:2px 12px; }
+.ex-head h4{ margin:0; font-weight:600; font-size:1.02rem; line-height:1.3; }
+.dose{ font:700 1rem/1.2 var(--f-data); font-variant-numeric:tabular-nums; }
+.ex-list p{ margin:0; }
+.why{ color:var(--muted); font-size:.93rem; }
+.why b{ color:var(--ink); font-weight:600; }
+.aside{ margin-block:16px; padding:16px 18px; border:1px dashed var(--line); border-radius:16px; }
+.aside h3{ margin:0 0 6px; font:700 1rem/1.3 var(--f-display); }
+.aside p{ margin:0; max-width:65ch; }
+
+/* rules */
+.rules{ display:grid; margin:0; padding:0; list-style:none; }
+.rules li{ padding-block:12px; border-top:1px solid var(--line); max-width:65ch; }
+.rules b{ display:block; margin-bottom:2px; font-weight:600; }
+.plain{ display:grid; gap:8px; margin:0 0 16px; padding-left:1.15em; max-width:65ch; }
+.callout{ padding:14px 16px; background:var(--surface); border:1px solid var(--line); border-radius:14px; }
+
+@media (min-width:560px){
+  .controls{ grid-template-columns:2fr 1fr 1fr; }
+  .controls .primary{ grid-column:auto; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Разделы">
+    <button type="button" class="tab" role="tab" id="tab-plan" aria-controls="view-plan" aria-selected="true">План</button>
+    <button type="button" class="tab" role="tab" id="tab-timer" aria-controls="view-timer" aria-selected="false" tabindex="-1">Таймер</button>
+    <button type="button" class="tab" role="tab" id="tab-exercises" aria-controls="view-exercises" aria-selected="false" tabindex="-1">Упражнения</button>
+    <button type="button" class="tab" role="tab" id="tab-rules" aria-controls="view-rules" aria-selected="false" tabindex="-1">Правила</button>
+  </nav>
+
+  <main>
+    <!-- PLAN -->
+    <section class="view" id="view-plan" role="tabpanel" aria-labelledby="tab-plan">
+      <div class="intro">
+        <p class="eyebrow">8 недель · 3 тренировки в неделю</p>
+        <h1>Пилотская подготовка</h1>
+        <p class="lede">Старт с нуля: за восемь недель от одной минуты бега до 30 минут без остановки. После двух тренировок в неделю идут короткие блоки с гантелями, как у гонщиков: шея, корпус, ноги, руки и реакция.</p>
+      </div>
+
+      <article class="next" aria-label="Следующая тренировка">
+        <div class="next-body" id="nextBody"></div>
+        <div class="progress">
+          <div class="progress-row">
+            <span class="progress-text" id="progressText">Выполнено 0 из 24</span>
+            <span class="ticks" id="ticks" aria-hidden="true"></span>
+          </div>
+          <p class="note small" id="syncNote">Отметки хранятся в этом браузере.</p>
+          <div class="gh" id="ghBox" hidden>
+            <button type="button" class="link-btn" id="ghToggle" aria-expanded="false" aria-controls="ghForm">Синхронизировать через GitHub</button>
+            <form class="gh-form" id="ghForm" hidden>
+              <label class="label" for="ghToken">Токен GitHub с правом gist</label>
+              <div class="gh-row">
+                <input id="ghToken" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_… или github_pat_…">
+                <button type="submit" class="btn">Подключить</button>
+              </div>
+              <p class="note small">Токен хранится только в этом браузере. <a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=Pilot%20training" target="_blank" rel="noopener">Создать токен</a>: достаточно галочки gist. Прогресс ляжет в секретный gist на твоём аккаунте.</p>
+            </form>
+            <div class="gh-on" id="ghOn" hidden>
+              <span class="note small" id="ghStatus"></span>
+              <button type="button" class="link-btn" id="ghOff">Отключить</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <section class="myweek" aria-labelledby="mw-title">
+        <div class="week-head">
+          <h2 id="mw-title">Твоя неделя</h2>
+          <button type="button" class="tag" data-goto="noskip">Как не пропускать</button>
+        </div>
+        <ol class="days" id="days" aria-label="Дни недели">
+          <li class="day" data-dow="1"><b>Пн</b><span>запас</span></li>
+          <li class="day run" data-dow="2"><b>Вт</b><span>13:15</span></li>
+          <li class="day" data-dow="3"><b>Ср</b><span>запас</span></li>
+          <li class="day uni" data-dow="4"><b>Чт</b><span>пары</span></li>
+          <li class="day run" data-dow="5"><b>Пт</b><span>14:10</span></li>
+          <li class="day uni" data-dow="6"><b>Сб</b><span>пары</span></li>
+          <li class="day run" data-dow="0"><b>Вс</b><span>12:00</span></li>
+        </ol>
+        <ul class="plain mw-notes">
+          <li><b>Вторник и пятница.</b> Бег сразу после английского. Переоденься в форму до урока, тогда после него останется только встать на дорожку.</li>
+          <li><b>Воскресенье.</b> В 12:00, до обеда.</li>
+          <li><b>Пропустил.</b> Сделай на следующий день: в понедельник, среду или субботу после пар. Два пропуска подряд не бывает.</li>
+          <li><b>Четверг.</b> Длинный учебный день, отдых.</li>
+        </ul>
+      </section>
+
+      <div class="how">
+        <p>В каждой неделе три тренировки: Практика, Квалификация и Гонка. Они идут по порядку в твои слоты, с какого бы дня ты ни начал. Пять минут разминки быстрым шагом и пять минут заминки уже входят во время тренировки и в таймер. Время записано в минутах и секундах: 1:30 значит полторы минуты. Ориентиры скорости для дорожки таймер показывает на каждом отрезке.</p>
+        <ul class="legend" aria-label="Цвета на полосках">
+          <li><i class="t-walk"></i>Шаг · hard</li>
+          <li><i class="t-run"></i>Бег · medium</li>
+          <li><i class="t-fast"></i>Ускорение · soft</li>
+          <li><i class="t-warm"></i>Разминка и заминка · inter</li>
+        </ul>
+        <p class="note small">Полоски окрашены как гоночные шины: чем мягче состав, тем интенсивнее отрезок.</p>
+      </div>
+
+      <div id="weeks"></div>
+    </section>
+
+    <!-- TIMER -->
+    <section class="view" id="view-timer" role="tabpanel" aria-labelledby="tab-timer" hidden>
+      <div class="timer-pick">
+        <label class="label" for="sessionSelect">Тренировка</label>
+        <select id="sessionSelect"></select>
+      </div>
+
+      <div class="board" id="board" data-state="idle" data-type="warm">
+        <p class="b-title" id="bTitle">Неделя 1 · Практика</p>
+        <div class="lights" id="lights" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="b-top"><span class="b-phase" id="bPhase">Разминка</span><span class="b-lap" id="bLap">Прогревочный круг</span></div>
+        <div class="b-time" id="bTime" aria-hidden="true">5:00</div>
+        <p class="b-sub" id="bSub">Быстрый шаг, около 5,5–6 км/ч</p>
+        <p class="b-next"><span class="b-label">Дальше</span><span id="bNext">Бег 1:00</span></p>
+        <div class="b-track" id="bTrack"><div class="b-marker" id="bMarker"></div></div>
+        <div class="b-totals">
+          <span><span class="b-label">Прошло</span><span id="bElapsed">0:00</span></span>
+          <span><span class="b-label">До финиша</span><span id="bLeft">28:30</span></span>
+        </div>
+      </div>
+      <p class="sr-only" id="live" aria-live="assertive"></p>
+
+      <div class="controls">
+        <button type="button" class="btn primary" id="btnMain">Старт</button>
+        <button type="button" class="btn" id="btnSkip" disabled>Пропустить</button>
+        <button type="button" class="btn" id="btnReset" disabled>Сбросить</button>
+      </div>
+      <p class="note" id="timerNote" role="status"></p>
+
+      <fieldset class="opts">
+        <legend class="label">Сигналы</legend>
+        <div class="opt-row">
+          <label class="opt"><input type="checkbox" id="optSound"> Звук</label>
+          <label class="opt"><input type="checkbox" id="optVoice"> Голос</label>
+          <label class="opt"><input type="checkbox" id="optVibe"> Вибрация</label>
+        </div>
+      </fieldset>
+      <div class="timer-tips">
+        <p class="note small" id="voiceNote" hidden>Русского голоса в этом браузере нет, останутся звуковые сигналы.</p>
+        <p class="note small" id="vibeNote" hidden>Вибрация на этом устройстве не поддерживается.</p>
+        <p class="note small">Поставь телефон на панель дорожки, отключи автоблокировку и прибавь громкость. За три секунды до смены отрезка звучат короткие сигналы: на них и начинай менять скорость, лента разгоняется не сразу.</p>
+      </div>
+    </section>
+
+    <!-- EXERCISES -->
+    <section class="view" id="view-exercises" role="tabpanel" aria-labelledby="tab-exercises" hidden>
+      <div class="view-head">
+        <p class="eyebrow">Пилотские блоки</p>
+        <h2 class="section-title">Как тренируются пилоты</h2>
+      </div>
+      <div class="prose">
+        <p>В Формуле-1 пульс пилота почти всю гонку держится около 150–180 ударов в минуту. В быстрых поворотах и на торможении перегрузка доходит до 5–6 g, а решения приходится принимать за доли секунды. Поэтому пилоты тренируют выносливость, шею, корпус, ноги и реакцию на высоком пульсе.</p>
+        <p>Здесь стартовая версия с гантелями: два блока по 12–15 минут сразу после бега. На 1–2 неделе делай по 2 круга, с 3-й недели по 3. Между кругами отдыхай минуту.</p>
+        <p class="callout"><b>Как подобрать вес.</b> Последние 2–3 повторения должны даваться тяжело, но без потери техники. Если гантели лёгкие, опускай вес медленно, на счёт три, и делай до 15–20 повторений. Когда на всех кругах получается верхняя граница, добавь вес.</p>
+      </div>
+
+      <article class="block" id="blockA">
+        <header class="block-head">
+          <span class="roundel" aria-hidden="true">A</span>
+          <div>
+            <h3>Шея, спина и корпус</h3>
+            <p class="block-meta">≈12 минут · после Практики · по кругу</p>
+          </div>
+        </header>
+        <ol class="ex-list">
+          <li>
+            <div class="ex-head"><h4>Изометрия шеи</h4><span class="dose">4 стороны × 10 с</span></div>
+            <p>Ладонь ко лбу, к затылку, к левому и правому виску. Дави головой в ладонь вполсилы, голова остаётся на месте. Дыши ровно, без рывков и без боли.</p>
+            <p class="why"><b>Зачем пилоту.</b> В быстром повороте голова в шлеме давит на шею в несколько раз сильнее обычного.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Шраги</h4><span class="dose">12–15 раз</span></div>
+            <p>Гантели в опущенных руках. Поднимай плечи к ушам, задержись на секунду и опусти. Плечами не вращай.</p>
+            <p class="why"><b>Зачем пилоту.</b> Трапеции помогают шее держать голову в шлеме.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Тяга гантели в наклоне</h4><span class="dose">10–12 на руку</span></div>
+            <p>Колено и ладонь на стуле или диване, спина ровная. Тяни гантель к поясу, локоть идёт вдоль тела.</p>
+            <p class="why"><b>Зачем пилоту.</b> Спина держит осанку в гоночном ковше и после долгого сидения за компьютером.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Прогулка с одной гантелью</h4><span class="dose">30 с на руку</span></div>
+            <p>Возьми самую тяжёлую гантель в одну руку и ходи по комнате. Корпус ровный и не заваливается в сторону веса.</p>
+            <p class="why"><b>Зачем пилоту.</b> Корпус сопротивляется боковой перегрузке, как в повороте. Заодно работает хват.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Планка на локтях</h4><span class="dose">20–40 с</span></div>
+            <p>Тело прямой линией, живот и ягодицы напряжены, поясница не провисает. С 5-й недели считай в планке вслух от 100 вниз через 7.</p>
+            <p class="why"><b>Зачем пилоту.</b> Корпус держит тело на торможении и разгоне, а счёт учит думать, когда тяжело.</p>
+          </li>
+        </ol>
+      </article>
+
+      <article class="block" id="blockB">
+        <header class="block-head">
+          <span class="roundel" aria-hidden="true">B</span>
+          <div>
+            <h3>Ноги, руки, реакция</h3>
+            <p class="block-meta">≈15 минут · после Квалификации · 1–5 по кругу, потом реакция</p>
+          </div>
+        </header>
+        <ol class="ex-list">
+          <li>
+            <div class="ex-head"><h4>Гоблет-присед</h4><span class="dose">10–12 раз</span></div>
+            <p>Держи одну гантель вертикально у груди. Садись глубоко, колени смотрят туда же, куда носки, пятки на полу.</p>
+            <p class="why"><b>Зачем пилоту.</b> Сильные ноги держат усилие на педалях всю гонку.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Румынская тяга</h4><span class="dose">10–12 раз</span></div>
+            <p>Гантели перед бёдрами, колени чуть согнуты. Отводи таз назад, гантели скользят вдоль ног до середины голени. Спина прямая всё время.</p>
+            <p class="why"><b>Зачем пилоту.</b> Поясница и задняя поверхность бедра выдерживают долгое сидение в ковше.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Выпады назад</h4><span class="dose">8 на ногу</span></div>
+            <p>Гантели в опущенных руках. Шаг назад, колено почти касается пола, вернись в стойку.</p>
+            <p class="why"><b>Зачем пилоту.</b> Каждая нога работает отдельно, как на педали тормоза.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Жим гантелей лёжа на полу</h4><span class="dose">10–12 раз</span></div>
+            <p>Лёжа на полу, локти под 45° к телу. Опускай, пока локти не коснутся пола, и выжимай вверх.</p>
+            <p class="why"><b>Зачем пилоту.</b> Грудь и плечи крутят руль.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Руление</h4><span class="dose">30 с</span></div>
+            <p>Возьми блин от гантели или саму гантель за оба края. Руки почти прямые перед собой, поворачивай на 90° влево и вправо в ровном темпе.</p>
+            <p class="why"><b>Зачем пилоту.</b> Классическое упражнение гонщиков на выносливость плеч и предплечий.</p>
+          </li>
+          <li>
+            <div class="ex-head"><h4>Реакция на пульсе</h4><span class="dose">3 раунда</span></div>
+            <p>30 секунд прыжков «звёздочка», сразу после них 30 секунд на реакцию: бросай теннисный мяч в стену и лови разными руками. Подойдёт и тест реакции в телефоне, и линейка, которую роняет напарник. Потом 30 секунд отдыха.</p>
+            <p class="why"><b>Зачем пилоту.</b> На трассе решения принимаются на высоком пульсе. Здесь учишься оставаться точным, когда сердце колотится.</p>
+          </li>
+        </ol>
+      </article>
+
+      <aside class="aside">
+        <h3>Если гоняешь в симе</h3>
+        <p>В симуляторе нет перегрузок, поэтому шее там легче. Остальное переносится напрямую: педаль с датчиком нагрузки требует десятков килограммов на каждом торможении, прямой привод руля нагружает предплечья, а в длинной гонке ошибки приходят вместе с усталостью. Если дойдёт до картинга, шея пригодится с первой сессии.</p>
+      </aside>
+    </section>
+
+    <!-- RULES -->
+    <section class="view" id="view-rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+      <div class="view-head">
+        <p class="eyebrow">Регламент</p>
+        <h2 class="section-title" id="noskip">Как не пропускать</h2>
+      </div>
+      <p>В моменте сонный или уставший ты почти всегда выбираешь остаться дома. Поэтому всё решено заранее, а первый шаг такой маленький, что спорить с ним не о чем.</p>
+      <ul class="rules">
+        <li><b>Время уже выбрано</b>Вторник 13:15 и пятница 14:10 сразу после английского, воскресенье в 12:00. Решать, бежать ли сегодня, не нужно: тренировка стоит в календаре, как пара.</li>
+        <li><b>Форма до английского</b>Переоденься в беговое перед уроком, кроссовки поставь у дорожки. К воскресенью приготовь одежду с вечера.</li>
+        <li><b>Минимум — пять минут</b>Договор с собой: встать на дорожку и пройти пять минут быстрым шагом. После них можно слезть. Обычно уже не хочется.</li>
+        <li><b>Два пропуска подряд не бывает</b>Пропустил — сделай на следующий день. Страница напомнит, что сегодня запасной день.</li>
+        <li><b>Сначала пробежка, потом iRacing</b>В дни тренировок сим запускается только после бега. А записи гонок, онборды и любимые подкасты смотришь и слушаешь только на дорожке.</li>
+        <li><b>Отметка сразу</b>Таймер ставит галочку сам. Цепочку из галочек жалко рвать, на это и расчёт.</li>
+      </ul>
+
+      <h2 class="section-title">Правила</h2>
+      <ul class="rules">
+        <li><b>Разговорный темп</b>На беговых отрезках ты можешь говорить фразами. Если задыхаешься, сбавь скорость на 0,5 км/ч, пусть даже бег станет чуть быстрее шага. Слишком быстрый темп — главная ошибка новичков.</li>
+        <li><b>Лучше не два дня подряд</b>Слоты стоят с перерывами. Если после пропуска две тренировки выпали на соседние дни, на второй сделай только бег, без силового блока.</li>
+        <li><b>Тяжёлую неделю можно повторить</b>Если отрезки не даются или усталость держится до следующей тренировки, пройди неделю ещё раз. Закончить программу за 10–12 недель нормально.</li>
+        <li><b>Пульс, если есть часы</b>На беге ориентир 130–150 ударов в минуту. Если выше и дыхание сбивается, сбавь темп.</li>
+        <li><b>Боль</b>Ноющие мышцы на следующий день — норма. Острая боль, боль в суставе или хромота — повод остановиться и отдохнуть 2–3 дня. Если не проходит, иди к врачу.</li>
+        <li><b>Когда остановиться сразу</b>Боль или давление в груди, головокружение, одышка, которая не проходит на шаге. Если уже есть проблемы с сердцем, давлением или суставами, перед стартом покажись врачу.</li>
+        <li><b>Экипировка</b>Кроссовки обязательно, даже дома. В носках или босиком на ленте легко натереть ноги и перегрузить стопы.</li>
+        <li><b>На дорожке</b>Пристегни ключ безопасности к одежде. Включи вентилятор и поставь рядом воду: без встречного ветра в комнате быстро становится жарко. Смотри вперёд, а не под ноги, и не держись за поручни на бегу. Наклон 1% чуть ближе к бегу на улице, но для старта подойдёт и ноль.</li>
+      </ul>
+
+      <h2 class="section-title" id="stretch">После бега: растяжка</h2>
+      <p>Пять минут после Гонки, а если есть время, после каждой тренировки. Каждое положение держи 30 секунд, без рывков.</p>
+      <ul class="plain">
+        <li><b>Икры.</b> Руки в стену, нога сзади прямая, пятка на полу.</li>
+        <li><b>Задняя поверхность бедра.</b> Пятка на невысокой опоре, наклон вперёд с ровной спиной.</li>
+        <li><b>Передняя поверхность бедра.</b> Стоя, тяни пятку к ягодице.</li>
+        <li><b>Сгибатели бедра.</b> Выпад с коленом на полу, таз вперёд. Особенно полезно, если много сидишь.</li>
+        <li><b>Грудь.</b> Предплечье на дверной косяк, разворот корпуса в другую сторону.</li>
+      </ul>
+      <p class="callout"><b>Дыхание как на стартовой решётке.</b> Вдох на 4 счёта, задержка на 4, выдох на 4, задержка на 4. Шесть циклов помогают успокоить пульс и голову.</p>
+
+      <h2 class="section-title" id="after">После 8 недель</h2>
+      <ul class="plain">
+        <li>Бегай 3–4 раза в неделю по 30–40 минут.</li>
+        <li>Раз в неделю длинная пробежка: добавляй по 5 минут, до 50–60.</li>
+        <li>Раз в неделю интервалы: 6 × (2 минуты быстро + 2 минуты трусцой). Это уже ближе к гоночному пульсу.</li>
+        <li>Цель следующего сезона: 5 км без остановки, потом 5 км на время.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var reduceMotion = false;
+  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  // Inside claude.ai the page syncs through the account; elsewhere (e.g. GitHub Pages) it can sync through a gist.
+  var inClaude = !!(window.claude && typeof window.claude.use === 'function');
+
+  // ---------- helpers ----------
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function addKid(el, c) {
+    if (c === null || c === undefined || c === false) return;
+    if (Array.isArray(c)) { c.forEach(function (x) { addKid(el, x); }); return; }
+    el.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  function h(tag, props) {
+    var el = document.createElement(tag);
+    if (props) {
+      Object.keys(props).forEach(function (k) {
+        var v = props[k];
+        if (v === null || v === undefined || v === false) return;
+        if (k === 'class') el.className = v;
+        else if (k.slice(0, 2) === 'on' && typeof v === 'function') el.addEventListener(k.slice(2), v);
+        else el.setAttribute(k, v === true ? '' : String(v));
+      });
+    }
+    for (var i = 2; i < arguments.length; i++) addKid(el, arguments[i]);
+    return el;
+  }
+  function setText(id, t) { var el = document.getElementById(id); if (el && el.textContent !== t) el.textContent = t; }
+  function mmss(sec) {
+    sec = Math.max(0, Math.round(sec));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function isoOf(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function todayISO() { return isoOf(new Date()); }
+  function shortDate(v) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(typeof v === 'string' ? v : '');
+    return m ? m[3] + '.' + m[2] : '';
+  }
+
+  // ---------- PROGRAM START ----------
+  var TYPES = {
+    warm: { label: 'Разминка',  lap: 'Прогревочный круг', hint: 'Быстрый шаг, около 5,5–6 км/ч' },
+    run:  { label: 'Бег',       lap: '',                  hint: 'Разговорный темп. Для старта 7–8 км/ч' },
+    walk: { label: 'Шаг',       lap: 'Восстановление',    hint: 'Спокойный шаг, 5–5,5 км/ч' },
+    fast: { label: 'Ускорение', lap: '',                  hint: 'Плюс 2–3 км/ч к беговой скорости. Не спринт' },
+    cool: { label: 'Заминка',   lap: 'Круг возвращения',  hint: 'Спокойный шаг, 4,5–5 км/ч. Потом растяжка' }
+  };
+  function seg(t, d) { return { t: t, d: d }; }
+  function reps(n, run, walk) {
+    var a = [];
+    for (var i = 0; i < n; i++) { a.push(seg('run', run)); if (i < n - 1) a.push(seg('walk', walk)); }
+    return a;
+  }
+  function strides(n) {
+    var a = [seg('walk', 90)];
+    for (var i = 0; i < n; i++) { a.push(seg('fast', 20)); if (i < n - 1) a.push(seg('walk', 60)); }
+    return a;
+  }
+  function R(n, run, walk) { return { main: reps(n, run, walk), text: n + ' × (бег ' + mmss(run) + ' + шаг ' + mmss(walk) + ')' }; }
+  function ONE(run) { return { main: [seg('run', run)], text: 'бег ' + mmss(run) + ' без остановки' }; }
+  function SPLIT(a, w, b) { return { main: [seg('run', a), seg('walk', w), seg('run', b)], text: 'бег ' + mmss(a) + ' + шаг ' + mmss(w) + ' + бег ' + mmss(b) }; }
+
+  var KINDS = [
+    { name: 'Практика',     tag: '+ блок A',   goto: 'blockA' },
+    { name: 'Квалификация', tag: '+ блок B',   goto: 'blockB' },
+    { name: 'Гонка',        tag: '+ растяжка', goto: 'stretch' }
+  ];
+  var WEEKS = [
+    { note: 'Бегаем по минуте. Темп разговорный: на бегу можно говорить фразами.', s: [R(8, 60, 90), R(8, 60, 90), R(8, 60, 90)] },
+    { note: 'Отрезки по полторы минуты, отдых такой же.', s: [R(7, 90, 90), R(7, 90, 90), R(7, 90, 90)] },
+    { note: 'Отрезки по 2,5 минуты, отдых по-прежнему 1:30.', s: [R(5, 150, 90), R(5, 150, 90), R(5, 150, 90)] },
+    { note: 'Первые длинные отрезки, по 4 минуты.', s: [R(4, 240, 90), R(4, 240, 90), R(4, 240, 90)] },
+    { note: 'По 6 минут. В Квалификации добавляются короткие ускорения.', s: [R(3, 360, 90), R(3, 360, 90), R(3, 360, 90)], fastIn: [1] },
+    { note: 'Два отрезка по 10 минут.', s: [R(2, 600, 120), R(2, 600, 120), R(2, 600, 120)], fastIn: [1] },
+    { note: 'В Гонке этой недели 20 минут без остановки.', s: [R(2, 720, 120), SPLIT(900, 120, 600), ONE(1200)], fastIn: [1] },
+    { note: 'Финальная неделя: 22, 25 и 30 минут.', s: [ONE(1320), ONE(1500), ONE(1800)], fastIn: [1] }
+  ];
+
+  var SESSIONS = [], BYKEY = {};
+  WEEKS.forEach(function (wk, wi) {
+    wk.s.forEach(function (p, si) {
+      var withFast = (wk.fastIn || []).indexOf(si) >= 0;
+      var segs = [seg('warm', 300)]
+        .concat(p.main.map(function (x) { return seg(x.t, x.d); }))
+        .concat(withFast ? strides(4) : [])
+        .concat([seg('cool', 300)]);
+      var runOf = segs.filter(function (x) { return x.t === 'run'; }).length;
+      var fastOf = segs.filter(function (x) { return x.t === 'fast'; }).length;
+      var rN = 0, fN = 0, acc = 0, ends = [];
+      segs.forEach(function (x) {
+        if (x.t === 'run') { x.n = ++rN; x.of = runOf; }
+        if (x.t === 'fast') { x.n = ++fN; x.of = fastOf; }
+        acc += x.d; ends.push(acc);
+      });
+      var key = (wi + 1) + '-' + (si + 1);
+      var s = { key: key, w: wi + 1, i: si + 1, kind: KINDS[si], segs: segs, ends: ends, total: acc,
+                text: p.text + (withFast ? ' + 4 ускорения по 20 с' : '') };
+      SESSIONS.push(s); BYKEY[key] = s;
+    });
+  });
+  // ---------- PROGRAM END ----------
+
+  // ---------- state & storage ----------
+  var STORE = 'pilotprep.v1';
+  var S = { done: {}, prefs: { sound: true, voice: true, vibe: true }, sel: null, updatedAt: 0, dirty: false };
+
+  function cleanDone(o) {
+    var out = {};
+    if (o && typeof o === 'object') {
+      Object.keys(o).forEach(function (k) {
+        if (!BYKEY[k]) return;
+        var v = o[k];
+        if (v === false || v === null || v === undefined) return;
+        out[k] = (typeof v === 'string' && v.length <= 10) ? v : true;
+      });
+    }
+    return out;
+  }
+  function loadLocal() {
+    try {
+      var raw = localStorage.getItem(STORE);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      S.done = cleanDone(d.done);
+      if (d.prefs && typeof d.prefs === 'object') {
+        ['sound', 'voice', 'vibe'].forEach(function (k) { if (typeof d.prefs[k] === 'boolean') S.prefs[k] = d.prefs[k]; });
+      }
+      if (d.sel && BYKEY[d.sel]) S.sel = d.sel;
+      if (typeof d.updatedAt === 'number') S.updatedAt = d.updatedAt;
+      S.dirty = !!d.dirty;
+    } catch (e) {}
+  }
+  function saveLocal() {
+    try { localStorage.setItem(STORE, JSON.stringify({ done: S.done, prefs: S.prefs, sel: S.sel, updatedAt: S.updatedAt, dirty: S.dirty })); } catch (e) {}
+  }
+
+  // Progress follows the signed-in viewer across devices via their private db subtree; the browser copy is the fallback.
+  var sync = { ref: null, writing: false, dirty: false, retried: false };
+  function setSyncNote(mode) {
+    setText('syncNote', mode === 'account'
+      ? 'Отметки сохраняются в твоём аккаунте, их видно и на других устройствах.'
+      : 'Отметки хранятся в этом браузере.');
+  }
+  function applyRemote(data) {
+    var next = cleanDone(data && data.done);
+    if (JSON.stringify(next) === JSON.stringify(S.done)) return;
+    S.done = next; saveLocal(); renderAllProgress();
+  }
+  function pushRemote() {
+    if (!sync.ref) return Promise.resolve();
+    if (sync.writing) { sync.dirty = true; return Promise.resolve(); }
+    sync.writing = true;
+    var write = function () {
+      sync.dirty = false;
+      return sync.ref.set({ done: Object.assign({}, S.done), updatedAt: new Date().toISOString() })
+        .then(function () { if (sync.dirty) return write(); });
+    };
+    return write().then(function () {
+      sync.writing = false; sync.retried = false;
+    }, function (e) {
+      sync.writing = false;
+      var code = e && e.code;
+      if (code === 'unavailable' && !sync.retried) {
+        sync.retried = true;
+        setTimeout(pushRemote, 1200 + Math.random() * 1600);
+        return;
+      }
+      if (code !== 'unavailable' && code !== 'resource_exhausted') { sync.ref = null; setSyncNote('local'); }
+    });
+  }
+  function initSync() {
+    var c = window.claude;
+    if (!c || typeof c.use !== 'function') return;
+    Promise.all([c.use('db'), c.use('user')]).then(function (r) {
+      var db = r[0], user = r[1];
+      if (!db || !user) return null;
+      return user.id().then(function (uid) {
+        if (!uid) return null;
+        var ref = db.doc('data/users/' + uid + '/progress');
+        return ref.get().then(function (snap) {
+          sync.ref = ref;
+          if (snap.exists) applyRemote(snap.data());
+          else if (Object.keys(S.done).length) return pushRemote().then(function () { return ref; });
+          return ref;
+        });
+      });
+    }).then(function (ref) {
+      if (!ref || !sync.ref) return;
+      setSyncNote('account');
+      ref.onSnapshot(function (snap) {
+        if (snap.exists && !snap.metadata.hasPendingWrites && !sync.writing) applyRemote(snap.data());
+      }, function () {});
+    }).catch(function () { sync.ref = null; setSyncNote('local'); });
+  }
+  function persist() { S.updatedAt = Date.now(); S.dirty = true; saveLocal(); pushRemote(); ghSchedule(); }
+
+  // ---------- GitHub gist sync (standalone hosting) ----------
+  var GH_KEY = 'pilotprep.gh', GH_FILE = 'pilot-training-progress.json';
+  var GH = { token: null, gistId: null, busy: false, again: false, timer: null, rev: 0 };
+  function ghLoad() {
+    try {
+      var d = JSON.parse(localStorage.getItem(GH_KEY) || 'null');
+      if (d && d.token) { GH.token = d.token; GH.gistId = d.gistId || null; }
+    } catch (e) {}
+  }
+  function ghStore() {
+    try {
+      if (GH.token) localStorage.setItem(GH_KEY, JSON.stringify({ token: GH.token, gistId: GH.gistId }));
+      else localStorage.removeItem(GH_KEY);
+    } catch (e) {}
+  }
+  function ghApi(path, method, body) {
+    return fetch('https://api.github.com' + path, {
+      method: method || 'GET', cache: 'no-store',
+      headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + GH.token,
+                 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined
+    }).then(function (r) {
+      if (!r.ok) { var err = new Error('GitHub ' + r.status); err.status = r.status; throw err; }
+      return r.json();
+    });
+  }
+  function ghPayload() {
+    var f = {};
+    f[GH_FILE] = { content: JSON.stringify({ done: S.done, updatedAt: S.updatedAt || 0 }, null, 1) };
+    return f;
+  }
+  function ghEnsureGist() {
+    if (GH.gistId) return Promise.resolve();
+    return ghApi('/gists?per_page=100').then(function (list) {
+      var g = (list || []).filter(function (x) { return x && x.files && x.files[GH_FILE]; })[0];
+      if (g) { GH.gistId = g.id; ghStore(); return; }
+      return ghApi('/gists', 'POST', { description: 'Пилотская подготовка: прогресс тренировок', public: false, files: ghPayload() })
+        .then(function (created) { GH.gistId = created.id; ghStore(); });
+    });
+  }
+  function ghReadRemote() {
+    return ghApi('/gists/' + GH.gistId).then(function (g) {
+      var f = g && g.files && g.files[GH_FILE];
+      if (!f) return null;
+      try { return JSON.parse(f.content || 'null'); } catch (e) { return null; }
+    });
+  }
+  function ghSync(firstConnect) {
+    if (!GH.token) return;
+    if (GH.busy) { GH.again = true; return; }
+    GH.busy = true; ghStatus('sync');
+    var sentRev = -1;
+    ghEnsureGist().then(ghReadRemote).then(function (remote) {
+      var rDone = cleanDone(remote && remote.done), rAt = Number(remote && remote.updatedAt) || 0;
+      var newer = rAt > (S.updatedAt || 0);
+      if (firstConnect || (S.dirty && newer)) {
+        // first connect on a device, or edits on two devices: keep the union of finished sessions
+        var merged = Object.assign({}, rDone, S.done);
+        if (JSON.stringify(merged) !== JSON.stringify(S.done)) { S.done = merged; renderAllProgress(); }
+        if (Object.keys(merged).length !== Object.keys(rDone).length) S.dirty = true;
+        S.updatedAt = Math.max(rAt, S.updatedAt || 0); saveLocal();
+      } else if (!S.dirty && newer) {
+        S.done = rDone; S.updatedAt = rAt; saveLocal(); renderAllProgress();
+      }
+      if (!S.dirty) return;
+      sentRev = GH.rev;
+      return ghApi('/gists/' + GH.gistId, 'PATCH', { files: ghPayload() });
+    }).then(function () {
+      if (sentRev >= 0 && sentRev === GH.rev) { S.dirty = false; saveLocal(); }
+      ghStatus(S.dirty ? 'pending' : 'ok');
+    }, function (e) {
+      var st = e && e.status;
+      if (st === 401 || st === 403) ghStatus('auth');
+      else { if (st === 404) { GH.gistId = null; ghStore(); } ghStatus('offline'); }
+    }).then(function () {
+      GH.busy = false;
+      if (GH.again) { GH.again = false; ghSync(false); }
+    });
+  }
+  function ghSchedule() {
+    if (!GH.token) return;
+    GH.rev++;
+    clearTimeout(GH.timer);
+    GH.timer = setTimeout(function () { ghSync(false); }, 1200);
+  }
+  function ghStatus(st) {
+    if (inClaude) return;
+    var on = !!GH.token;
+    document.getElementById('ghOn').hidden = !on;
+    document.getElementById('ghToggle').hidden = on;
+    if (on) document.getElementById('ghForm').hidden = st !== 'auth';
+    var now = new Date(), t = '';
+    if (st === 'sync') t = 'Синхронизирую с GitHub…';
+    else if (st === 'ok') t = 'Синхронизировано в ' + hm(now.getHours(), now.getMinutes()) + '.';
+    else if (st === 'pending') t = 'Есть свежие отметки, отправлю через пару секунд.';
+    else if (st === 'offline') t = 'GitHub сейчас недоступен. Отметки сохранены здесь и уйдут при следующей синхронизации.';
+    else if (st === 'auth') t = 'GitHub не принял токен. Проверь, что у него есть право gist и не истёк срок, и подключи заново.';
+    setText('ghStatus', t);
+    setText('syncNote', on ? 'Отметки синхронизируются через секретный gist на GitHub.' : 'Отметки хранятся в этом браузере.');
+  }
+
+  function nextKey() {
+    for (var i = 0; i < SESSIONS.length; i++) if (!S.done[SESSIONS[i].key]) return SESSIONS[i].key;
+    return null;
+  }
+
+  // ---------- weekly slots: Tue and Fri right after English, Sunday noon ----------
+  var SLOTS = [
+    { dow: 2, h: 13, m: 15, note: 'после английского' },
+    { dow: 5, h: 14, m: 10, note: 'после английского' },
+    { dow: 0, h: 12, m: 0,  note: 'до обеда' }
+  ];
+  var DOW_IN = ['в воскресенье', 'в понедельник', 'во вторник', 'в среду', 'в четверг', 'в пятницу', 'в субботу'];
+  function hm(h, m) { return h + ':' + (m < 10 ? '0' : '') + m; }
+  function doneOn(iso) { return Object.keys(S.done).some(function (k) { return S.done[k] === iso; }); }
+  function slotStatus(now) {
+    if (!nextKey()) return null;
+    var day = function (n) { return new Date(now.getFullYear(), now.getMonth(), now.getDate() + n); };
+    var slotOf = function (d) { return SLOTS.filter(function (s) { return s.dow === d.getDay(); })[0]; };
+    var y = day(-1);
+    if (Object.keys(S.done).length && slotOf(y) && !doneOn(isoOf(y)) && !doneOn(isoOf(day(-2))) && !doneOn(isoOf(now))) {
+      return { cls: 'missed', text: 'Вчерашний слот пропущен. Сегодня запасной день: одна тренировка в любое время, и второго пропуска не будет.' };
+    }
+    for (var add = 0; add < 8; add++) {
+      var d = day(add), slot = slotOf(d);
+      if (!slot || (add === 0 && doneOn(isoOf(d)))) continue;
+      var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot.h, slot.m).getTime();
+      if (now.getTime() >= start + 90 * 60000) continue;
+      if (now.getTime() >= start) return { cls: 'now', text: 'Сейчас время бега: слот ' + hm(slot.h, slot.m) + ', ' + slot.note + '.' };
+      var when = add === 0 ? 'сегодня' : add === 1 ? 'завтра' : DOW_IN[d.getDay()];
+      return { cls: '', text: 'Ближайший слот: ' + when + ' в ' + hm(slot.h, slot.m) + ', ' + slot.note + '.' };
+    }
+    return null;
+  }
+  function renderSlot() {
+    var now = new Date();
+    var el = document.getElementById('slotLine');
+    if (el) {
+      var st = slotStatus(now);
+      el.hidden = !st;
+      if (st) { el.className = 'slot' + (st.cls ? ' ' + st.cls : ''); setText('slotLine', st.text); }
+    }
+    $$('#days .day').forEach(function (li) { li.classList.toggle('today', Number(li.getAttribute('data-dow')) === now.getDay()); });
+  }
+
+  // ---------- rendering ----------
+  function barEl(segs, cls) {
+    var b = h('div', { class: 'bar' + (cls ? ' ' + cls : ''), 'aria-hidden': 'true' });
+    segs.forEach(function (x) { var i = h('i', { class: 't-' + x.t }); i.style.flexGrow = String(x.d); b.append(i); });
+    return b;
+  }
+  function playIcon() {
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 16 16'); svg.setAttribute('width', '14'); svg.setAttribute('height', '14'); svg.setAttribute('aria-hidden', 'true');
+    var p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', 'M4.5 2.5v11l9-5.5z'); p.setAttribute('fill', 'currentColor');
+    svg.append(p);
+    return svg;
+  }
+  function tagBtn(kind) {
+    return h('button', { type: 'button', class: 'tag', onclick: function () { goTo(kind.goto); } }, kind.tag);
+  }
+  function sessionRow(s, nk) {
+    var done = !!S.done[s.key], isNext = s.key === nk;
+    var cb = h('input', { type: 'checkbox', id: 'done-' + s.key, class: 'chk', 'aria-label': 'Неделя ' + s.w + ', ' + s.kind.name + ': выполнено' });
+    cb.checked = done;
+    cb.addEventListener('change', function () { toggleDone(s.key, cb.checked); });
+    var dateTxt = done ? (shortDate(S.done[s.key]) ? '✓ ' + shortDate(S.done[s.key]) : '✓') : null;
+    return h('li', { class: 'session' + (done ? ' is-done' : '') + (isNext ? ' is-next' : '') },
+      cb,
+      h('div', { class: 's-main' },
+        h('div', { class: 's-title' },
+          h('span', { class: 's-name' }, s.kind.name),
+          isNext ? h('span', { class: 'pill' }, 'Следующая') : null,
+          tagBtn(s.kind)),
+        h('div', { class: 's-text' }, s.text),
+        barEl(s.segs, 'mini')),
+      h('div', { class: 's-side' },
+        h('span', { class: 's-dur' }, mmss(s.total)),
+        dateTxt ? h('span', { class: 's-date' }, dateTxt) : null,
+        h('button', { type: 'button', class: 'play', 'aria-label': 'Открыть в таймере: неделя ' + s.w + ', ' + s.kind.name,
+          onclick: function () { openInTimer(s.key); } }, playIcon()))
+    );
+  }
+  function renderPlan() {
+    var host = $('#weeks');
+    var activeId = document.activeElement && document.activeElement.id;
+    host.textContent = '';
+    var nk = nextKey();
+    WEEKS.forEach(function (wk, wi) {
+      var w = wi + 1;
+      var items = SESSIONS.filter(function (s) { return s.w === w; });
+      var doneN = items.filter(function (s) { return S.done[s.key]; }).length;
+      host.append(h('section', { class: 'week', id: 'week-' + w, 'aria-labelledby': 'wh-' + w },
+        h('div', { class: 'week-head' },
+          h('h2', { id: 'wh-' + w }, 'Неделя ' + w),
+          h('span', { class: 'week-count' }, doneN + '/3')),
+        h('p', { class: 'week-note' }, wk.note),
+        h('ol', { class: 'sessions' }, items.map(function (s) { return sessionRow(s, nk); }))
+      ));
+    });
+    if (activeId) { var el = document.getElementById(activeId); if (el && el !== document.activeElement) el.focus({ preventScroll: true }); }
+  }
+  function renderNext() {
+    var box = $('#nextBody');
+    box.textContent = '';
+    var nk = nextKey();
+    if (!nk) {
+      box.append(
+        h('p', { class: 'eyebrow' }, 'Программа пройдена'),
+        h('h2', null, '30 минут без остановки'),
+        h('p', { class: 'note' }, 'Восемь недель позади. Как тренироваться дальше, написано в правилах.'),
+        h('button', { type: 'button', class: 'btn primary wide', onclick: function () { goTo('after'); } }, 'Что дальше'));
+    } else {
+      var s = BYKEY[nk];
+      box.append(
+        h('p', { class: 'eyebrow' }, 'Следующая тренировка'),
+        h('h2', null, 'Неделя ' + s.w + ' · ' + s.kind.name),
+        h('p', { class: 'slot', id: 'slotLine', hidden: true }),
+        h('p', { class: 'next-text' }, s.text),
+        barEl(s.segs, ''),
+        h('div', { class: 'next-meta' }, h('span', null, mmss(s.total) + ' вместе с разминкой и заминкой'), tagBtn(s.kind)),
+        h('button', { type: 'button', class: 'btn primary wide', onclick: function () { openInTimer(nk); } }, 'На старт'));
+    }
+    var doneN = SESSIONS.filter(function (x) { return S.done[x.key]; }).length;
+    setText('progressText', 'Выполнено ' + doneN + ' из ' + SESSIONS.length);
+    var ticks = $('#ticks');
+    ticks.textContent = '';
+    SESSIONS.forEach(function (x) { ticks.append(h('i', { class: S.done[x.key] ? 'on' : null })); });
+    renderSlot();
+  }
+  function renderSelect() {
+    var sel = $('#sessionSelect');
+    sel.textContent = '';
+    WEEKS.forEach(function (wk, wi) {
+      var og = h('optgroup', { label: 'Неделя ' + (wi + 1) });
+      SESSIONS.filter(function (s) { return s.w === wi + 1; }).forEach(function (s) {
+        og.append(h('option', { value: s.key }, s.kind.name + ' · ' + mmss(s.total) + (S.done[s.key] ? ' · выполнено' : '')));
+      });
+      sel.append(og);
+    });
+    if (T.key) sel.value = T.key;
+  }
+  function renderAllProgress() { renderPlan(); renderNext(); renderSelect(); }
+  function toggleDone(key, on) {
+    if (on) S.done[key] = todayISO(); else delete S.done[key];
+    persist(); renderAllProgress();
+  }
+
+  // ---------- tabs ----------
+  var TABS = ['plan', 'timer', 'exercises', 'rules'];
+  function showTab(name, keepScroll) {
+    TABS.forEach(function (t) {
+      var on = t === name;
+      var b = document.getElementById('tab-' + t);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      document.getElementById('view-' + t).hidden = !on;
+    });
+    if (!keepScroll) window.scrollTo(0, 0);
+  }
+  function goTo(id) {
+    showTab(id === 'blockA' || id === 'blockB' ? 'exercises' : 'rules', true);
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+  TABS.forEach(function (t) { document.getElementById('tab-' + t).addEventListener('click', function () { showTab(t); }); });
+  $$('[data-goto]').forEach(function (b) { b.addEventListener('click', function () { goTo(b.getAttribute('data-goto')); }); });
+  $('#tabs').addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    var i = TABS.findIndex(function (t) { return document.getElementById('tab-' + t).getAttribute('aria-selected') === 'true'; });
+    var n = (i + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length;
+    showTab(TABS[n]); document.getElementById('tab-' + TABS[n]).focus();
+  });
+
+  // ---------- signals: sound, voice, vibration ----------
+  var ac = null;
+  function unlockAudio() {
+    try {
+      if (!ac) { var AC = window.AudioContext || window.webkitAudioContext; if (AC) ac = new AC(); }
+      if (ac && ac.state === 'suspended') ac.resume();
+    } catch (e) {}
+  }
+  function tone(freq, dur, when, vol) {
+    if (!S.prefs.sound || !ac) return;
+    try {
+      var t = ac.currentTime + (when || 0);
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.type = 'square'; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(ac.destination);
+      o.start(t); o.stop(t + dur + 0.03);
+    } catch (e) {}
+  }
+  var ruVoice = null, voicesKnown = false;
+  function pickVoice() {
+    try {
+      var vs = window.speechSynthesis.getVoices() || [];
+      voicesKnown = vs.length > 0;
+      ruVoice = vs.filter(function (v) { return /^ru([-_]|$)/i.test(v.lang || ''); })[0] || null;
+      $('#voiceNote').hidden = !(voicesKnown && !ruVoice);
+    } catch (e) {}
+  }
+  if ('speechSynthesis' in window) {
+    pickVoice();
+    try { window.speechSynthesis.addEventListener('voiceschanged', pickVoice); } catch (e) {}
+  } else {
+    $('#optVoice').disabled = true;
+  }
+  function speak(text) {
+    if (!S.prefs.voice || !('speechSynthesis' in window)) return;
+    if (voicesKnown && !ruVoice) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ru-RU'; u.rate = 1.05;
+      if (ruVoice) u.voice = ruVoice;
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  function hush() { try { window.speechSynthesis.cancel(); } catch (e) {} }
+  var canVibe = typeof navigator.vibrate === 'function';
+  function vibe(p) { if (!S.prefs.vibe || !canVibe) return; try { navigator.vibrate(p); } catch (e) {} }
+
+  var wakeLock = null;
+  function requestWake() {
+    if (!('wakeLock' in navigator) || wakeLock) return;
+    try {
+      navigator.wakeLock.request('screen').then(function (w) {
+        wakeLock = w;
+        w.addEventListener('release', function () { if (wakeLock === w) wakeLock = null; updateNote(); });
+        updateNote();
+      }, function () { wakeLock = null; updateNote(); });
+    } catch (e) { wakeLock = null; }
+  }
+  function releaseWake() { var w = wakeLock; wakeLock = null; if (w) { try { w.release(); } catch (e) {} } }
+
+  // ---------- timer ----------
+  var T = { key: null, s: null, state: 'idle', t0: 0, pausedAt: 0, idx: -1, lastTick: null, halfIdx: -1, iv: null, lights: [] };
+  function isActive() { return T.state === 'lights' || T.state === 'running' || T.state === 'paused'; }
+  function elapsed() { return ((T.state === 'paused' ? T.pausedAt : Date.now()) - T.t0) / 1000; }
+  function lapLabel(x) {
+    if (x.t === 'run') return x.of > 1 ? 'Круг ' + x.n + ' из ' + x.of : 'Без остановки';
+    if (x.t === 'fast') return x.n + ' из ' + x.of;
+    return TYPES[x.t].lap;
+  }
+  function setBoardState(st) {
+    $('#board').dataset.state = st;
+    $('#lights').hidden = !(st === 'idle' || st === 'lights');
+  }
+  function clearLights() {
+    T.lights.forEach(clearTimeout); T.lights = [];
+    $$('#lights span').forEach(function (l) { l.classList.remove('on'); });
+  }
+  function paintPhase(x) {
+    $('#board').dataset.type = x.t;
+    setText('bPhase', TYPES[x.t].label);
+    setText('bLap', lapLabel(x));
+    setText('bSub', TYPES[x.t].hint);
+  }
+  function nextLabel(nx) { return nx ? TYPES[nx.t].label + ' ' + mmss(nx.d) : 'Финиш'; }
+  function paint(e, i, rem) {
+    var s = T.s;
+    paintPhase(s.segs[i]);
+    setText('bTime', mmss(Math.ceil(rem - 1e-9)));
+    setText('bNext', nextLabel(s.segs[i + 1]));
+    setText('bElapsed', mmss(Math.floor(e)));
+    setText('bLeft', mmss(Math.ceil(s.total - e - 1e-9)));
+    $('#bMarker').style.left = Math.min(100, Math.max(0, e / s.total * 100)) + '%';
+  }
+  function paintIdle() {
+    var s = T.s; if (!s) return;
+    clearLights();
+    setBoardState('idle');
+    setText('bTitle', 'Неделя ' + s.w + ' · ' + s.kind.name);
+    paintPhase(s.segs[0]);
+    setText('bTime', mmss(s.segs[0].d));
+    setText('bNext', nextLabel(s.segs[1]));
+    setText('bElapsed', '0:00');
+    setText('bLeft', mmss(s.total));
+    $('#bMarker').style.left = '0%';
+  }
+  function paintDone() {
+    var s = T.s, nk = nextKey();
+    setText('bPhase', 'Финиш');
+    setText('bLap', '');
+    setText('bTime', mmss(s.total));
+    setText('bSub', 'Тренировка засчитана и отмечена в плане.');
+    setText('bNext', nk ? 'Неделя ' + BYKEY[nk].w + ' · ' + BYKEY[nk].kind.name : 'Программа пройдена');
+    setText('bElapsed', mmss(s.total));
+    setText('bLeft', '0:00');
+    $('#bMarker').style.left = '100%';
+  }
+  function buildBoardBar() {
+    var tr = $('#bTrack'), old = tr.querySelector('.bar');
+    if (old) old.remove();
+    tr.prepend(barEl(T.s.segs, ''));
+  }
+  function loadSession(key) {
+    var s = BYKEY[key]; if (!s) return;
+    T.key = key; T.s = s; T.state = 'idle'; T.idx = -1; T.lastTick = null; T.halfIdx = -1;
+    S.sel = key; saveLocal();
+    var sel = $('#sessionSelect'); if (sel.value !== key) sel.value = key;
+    buildBoardBar(); paintIdle(); updateControls();
+  }
+
+  function cue(i) {
+    var segs = T.s.segs, x = segs[i];
+    setText('live', TYPES[x.t].label + ', ' + mmss(x.d));
+    if (x.t === 'warm') { tone(988, .22); speak('Разминка. Быстрый шаг.'); vibe(300); }
+    else if (x.t === 'run') { tone(1319, .12); tone(1319, .12, .2); speak(x.of > 1 && x.n === x.of ? 'Бег. Последний круг.' : 'Бег.'); vibe([200, 100, 200]); }
+    else if (x.t === 'fast') { tone(1568, .09); tone(1568, .09, .15); tone(1568, .09, .3); speak(x.n === 1 ? 'Ускорение. Быстро и расслабленно.' : 'Ускорение.'); vibe([100, 60, 100, 60, 100]); }
+    else if (x.t === 'walk') {
+      var pv = segs[i - 1], nx = segs[i + 1];
+      tone(659, .38); speak(pv && pv.t === 'run' && nx && nx.t === 'fast' ? 'Шаг. Дальше ускорения.' : 'Шаг.'); vibe(500);
+    }
+    else if (x.t === 'cool') { tone(659, .38); speak('Заминка. Спокойный шаг.'); vibe(500); }
+  }
+  function loop() {
+    if (T.state !== 'running' && T.state !== 'paused') return;
+    var s = T.s, e = elapsed();
+    if (e >= s.total) { finish(); return; }
+    var i = Math.max(T.idx, 0);
+    while (i < s.ends.length - 1 && s.ends[i] <= e) i++;
+    if (i !== T.idx) { T.idx = i; T.lastTick = null; cue(i); }
+    var x = s.segs[i], rem = s.ends[i] - e, remSec = Math.ceil(rem);
+    if (T.state === 'running') {
+      if (x.d >= 10 && remSec >= 1 && remSec <= 3 && T.lastTick !== remSec) { T.lastTick = remSec; tone(880, .07, 0, .16); }
+      if (x.t === 'run' && x.d >= 600 && T.halfIdx !== i && e - (s.ends[i] - x.d) >= x.d / 2) {
+        T.halfIdx = i; tone(988, .14); tone(988, .14, .2); speak('Половина отрезка.');
+      }
+    }
+    paint(e, i, rem);
+  }
+  function startLights() {
+    if (!T.s) return;
+    unlockAudio(); speak('На старт.'); requestWake();
+    T.state = 'lights'; setBoardState('lights'); updateControls();
+    var lamps = $$('#lights span'), step = 700;
+    lamps.forEach(function (l, k) {
+      T.lights.push(setTimeout(function () { l.classList.add('on'); tone(587, .14, 0, .18); }, step * (k + 1)));
+    });
+    T.lights.push(setTimeout(function () {
+      lamps.forEach(function (l) { l.classList.remove('on'); });
+      tone(1175, .35, 0, .24);
+      go();
+    }, step * 5 + 450 + Math.random() * 900));
+  }
+  function go() {
+    T.lights = [];
+    T.t0 = Date.now(); T.state = 'running'; T.idx = -1; T.lastTick = null; T.halfIdx = -1;
+    setBoardState('running'); updateControls();
+    loop();
+    clearInterval(T.iv); T.iv = setInterval(loop, 200);
+  }
+  function pause() {
+    if (T.state !== 'running') return;
+    T.pausedAt = Date.now(); T.state = 'paused';
+    clearInterval(T.iv); T.iv = null;
+    releaseWake(); hush();
+    setBoardState('paused'); updateControls(); loop();
+  }
+  function resume() {
+    if (T.state !== 'paused') return;
+    unlockAudio();
+    T.t0 += Date.now() - T.pausedAt; T.state = 'running';
+    requestWake(); setBoardState('running'); updateControls(); loop();
+    clearInterval(T.iv); T.iv = setInterval(loop, 200);
+  }
+  function skip() {
+    if (T.state !== 'running' && T.state !== 'paused') return;
+    var i = Math.max(T.idx, 0), ref = T.state === 'paused' ? T.pausedAt : Date.now();
+    T.t0 = ref - T.s.ends[i] * 1000 - 5;
+    loop();
+  }
+  function finish() {
+    clearInterval(T.iv); T.iv = null;
+    T.state = 'done'; releaseWake();
+    var s = T.s;
+    if (!S.done[s.key]) { S.done[s.key] = todayISO(); persist(); renderAllProgress(); }
+    setBoardState('done'); paintDone(); updateControls();
+    setText('live', 'Финиш. Тренировка засчитана.');
+    tone(784, .16); tone(988, .16, .18); tone(1319, .42, .36);
+    speak('Финиш! Тренировка засчитана.'); vibe([300, 100, 300, 100, 600]);
+  }
+  var resetArm = null;
+  function disarm() {
+    clearTimeout(resetArm); resetArm = null;
+    var b = $('#btnReset'); b.textContent = 'Сбросить'; b.classList.remove('armed');
+  }
+  function doReset() {
+    clearInterval(T.iv); T.iv = null; clearLights(); releaseWake(); hush();
+    T.state = 'idle'; T.idx = -1; T.lastTick = null; T.halfIdx = -1;
+    paintIdle(); updateControls();
+  }
+  function onReset() {
+    if (T.state === 'idle') return;
+    if (T.state === 'done') { doReset(); return; }
+    if (!resetArm) {
+      var b = $('#btnReset'); b.textContent = 'Точно сбросить?'; b.classList.add('armed');
+      resetArm = setTimeout(disarm, 3000);
+      return;
+    }
+    disarm(); doReset();
+  }
+  function onMain() {
+    if (T.state === 'idle') startLights();
+    else if (T.state === 'running') pause();
+    else if (T.state === 'paused') resume();
+    else if (T.state === 'done') { var nk = nextKey(); if (nk) loadSession(nk); else showTab('plan'); }
+  }
+  function openInTimer(key) {
+    if (isActive() && T.key !== key) { showTab('timer'); flashNote('Сначала закончи или сбрось текущую тренировку.'); return; }
+    if (!isActive()) loadSession(key);
+    showTab('timer');
+  }
+
+  var noteTimer = null;
+  function updateNote() {
+    clearTimeout(noteTimer); noteTimer = null;
+    var t = '';
+    if (T.state === 'idle') t = 'Нажми «Старт». Пять огней загорятся по очереди, и когда погаснут, начнётся разминка.';
+    else if (T.state === 'lights') t = 'Огни загораются. Погаснут — иди.';
+    else if (T.state === 'running') t = wakeLock ? 'Экран не погаснет, пока идёт тренировка.' : 'Не давай экрану погаснуть: с заблокированным телефоном сигналы могут не прозвучать.';
+    else if (T.state === 'paused') t = 'Пауза. Таймер стоит, пока не нажмёшь «Продолжить».';
+    else if (T.state === 'done') t = 'Тренировка засчитана. Следующая уже ждёт в плане.';
+    setText('timerNote', t);
+  }
+  function flashNote(msg) {
+    setText('timerNote', msg);
+    clearTimeout(noteTimer); noteTimer = setTimeout(updateNote, 4000);
+  }
+  function updateControls() {
+    var st = T.state, m = $('#btnMain');
+    m.disabled = st === 'lights' || !T.s;
+    m.textContent = st === 'idle' ? 'Старт'
+      : st === 'lights' ? 'Огни горят'
+      : st === 'running' ? 'Пауза'
+      : st === 'paused' ? 'Продолжить'
+      : (nextKey() ? 'Следующая тренировка' : 'К плану');
+    $('#btnSkip').disabled = !(st === 'running' || st === 'paused');
+    $('#btnReset').disabled = st === 'idle';
+    $('#sessionSelect').disabled = isActive();
+    updateNote();
+  }
+
+  // ---------- wiring ----------
+  $('#btnMain').addEventListener('click', onMain);
+  $('#btnSkip').addEventListener('click', skip);
+  $('#btnReset').addEventListener('click', onReset);
+  $('#sessionSelect').addEventListener('change', function (e) { if (!isActive()) loadSession(e.target.value); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+    renderSlot();
+    if (!inClaude && GH.token) ghSync(false);
+    if (T.state === 'running') { loop(); requestWake(); }
+  });
+  if (!inClaude) {
+    document.getElementById('ghForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = document.getElementById('ghToken'), tok = (input.value || '').trim();
+      if (!tok) { input.focus(); return; }
+      GH.token = tok; GH.gistId = null; ghStore(); input.value = '';
+      ghSync(true);
+    });
+    document.getElementById('ghToggle').addEventListener('click', function () {
+      var f = document.getElementById('ghForm');
+      f.hidden = !f.hidden;
+      this.setAttribute('aria-expanded', String(!f.hidden));
+      if (!f.hidden) document.getElementById('ghToken').focus();
+    });
+    document.getElementById('ghOff').addEventListener('click', function () {
+      GH.token = null; GH.gistId = null; ghStore();
+      document.getElementById('ghForm').hidden = true;
+      ghStatus('');
+    });
+  }
+  [['optSound', 'sound'], ['optVoice', 'voice'], ['optVibe', 'vibe']].forEach(function (p) {
+    var el = document.getElementById(p[0]);
+    el.checked = !!S.prefs[p[1]];
+    el.addEventListener('change', function () {
+      S.prefs[p[1]] = el.checked; saveLocal();
+      if (p[1] === 'voice' && !el.checked) hush();
+      if (p[1] === 'sound' && el.checked) unlockAudio();
+    });
+  });
+
+  // ---------- boot ----------
+  loadLocal();
+  ['optSound', 'optVoice', 'optVibe'].forEach(function (id, k) { document.getElementById(id).checked = !!S.prefs[['sound', 'voice', 'vibe'][k]]; });
+  if (!canVibe) { $('#optVibe').disabled = true; $('#optVibe').checked = false; $('#vibeNote').hidden = false; }
+  renderAllProgress();
+  loadSession(nextKey() || (S.sel && BYKEY[S.sel] ? S.sel : SESSIONS[SESSIONS.length - 1].key));
+  var hs = (location.hash || '').replace('#', '');
+  if (TABS.indexOf(hs) >= 0) showTab(hs, true);
+  setInterval(renderSlot, 60000);
+  initSync();
+  if (!inClaude) {
+    document.getElementById('ghBox').hidden = false;
+    ghLoad(); ghStatus('');
+    if (GH.token) ghSync(false);
+  }
+})();
+</script>
+
+</body>
+</html>
