@@ -228,6 +228,22 @@ select:disabled{ opacity:.6; }
 .ex-list p{ margin:0; }
 .why{ color:var(--muted); font-size:.93rem; }
 .why b{ color:var(--ink); font-weight:600; }
+.ex-tools{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.ex-btn{ box-sizing:border-box; display:inline-flex; align-items:center; gap:8px; min-height:38px; padding:8px 13px; border:1px solid var(--line); border-radius:999px;
+  background:var(--chip); color:var(--ink); font:600 .82rem/1 var(--f-data); letter-spacing:.05em; text-transform:uppercase; text-decoration:none; cursor:pointer; }
+.ex-btn:hover{ border-color:var(--ink); }
+.ex-btn::after{ content:""; flex:none; width:6px; height:6px; margin-top:-3px; border-right:2px solid; border-bottom:2px solid; transform:rotate(45deg); }
+.ex-btn[aria-expanded="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
+.ex-btn[aria-expanded="true"]::after{ margin-top:3px; transform:rotate(-135deg); }
+.ex-btn.video::after{ display:none; }
+.ex-btn.video::before{ content:""; flex:none; border-style:solid; border-width:5px 0 5px 8px; border-color:transparent transparent transparent var(--accent); }
+.ex-btn .dur{ color:var(--muted); font-variant-numeric:tabular-nums; }
+.howto{ display:grid; gap:10px; margin-top:4px; padding:12px 14px; background:var(--bg); border:1px solid var(--line); border-radius:14px; }
+.steps{ display:grid; gap:7px; margin:0; padding-left:1.2em; }
+.steps li{ padding-left:2px; }
+.steps li::marker{ font:700 1rem var(--f-data); color:var(--muted); }
+.howto .why{ font-size:.92rem; }
+.vlink{ color:var(--ink); font-weight:600; text-underline-offset:3px; white-space:nowrap; }
 .aside{ margin-block:16px; padding:16px 18px; border:1px dashed var(--line); border-radius:16px; }
 .aside h3{ margin:0 0 6px; font:700 1rem/1.3 var(--f-display); }
 .aside p{ margin:0; max-width:65ch; }
@@ -382,6 +398,7 @@ select:disabled{ opacity:.6; }
       <div class="prose">
         <p>В Формуле-1 пульс пилота почти всю гонку держится около 150–180 ударов в минуту. В быстрых поворотах и на торможении перегрузка доходит до 5–6 g, а решения приходится принимать за доли секунды. Поэтому пилоты тренируют выносливость, шею, корпус, ноги и реакцию на высоком пульсе.</p>
         <p>Здесь стартовая версия с гантелями: два блока по 12–15 минут сразу после бега. На 1–2 неделе делай по 2 круга, с 3-й недели по 3. Между кругами отдыхай минуту.</p>
+        <p>Если непонятно, как делать упражнение, под ним есть разбор «По шагам» с частыми ошибками и ссылка на видео с техникой.</p>
         <p class="callout"><b>Как подобрать вес.</b> Последние 2–3 повторения должны даваться тяжело, но без потери техники. Если гантели лёгкие, опускай вес медленно, на счёт три, и делай до 15–20 повторений. Когда на всех кругах получается верхняя граница, добавь вес.</p>
       </div>
 
@@ -398,26 +415,96 @@ select:disabled{ opacity:.6; }
             <div class="ex-head"><h4>Изометрия шеи</h4><span class="dose">4 стороны × 10 с</span></div>
             <p>Ладонь ко лбу, к затылку, к левому и правому виску. Дави головой в ладонь вполсилы, голова остаётся на месте. Дыши ровно, без рывков и без боли.</p>
             <p class="why"><b>Зачем пилоту.</b> В быстром повороте голова в шлеме давит на шею в несколько раз сильнее обычного.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-a1">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=52SyClamwwo" target="_blank" rel="noopener">Видео <span class="dur">5:28</span></a>
+            </div>
+            <div class="howto" id="how-a1" hidden>
+              <ol class="steps">
+                <li>Сядь или встань ровно. Плечи опусти, подбородок чуть подтяни к себе, смотри прямо.</li>
+                <li>Положи ладонь на лоб. За 1–2 секунды плавно наращивай давление головой в ладонь, а рукой не давай голове сдвинуться.</li>
+                <li>Держи 10 секунд вполсилы и дыши. Так же плавно отпусти.</li>
+                <li>Повтори с ладонями на затылке (пальцы в замок), потом с ладонью на левом и на правом виске.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Резкий толчок вместо плавного нажима. Задержка дыхания. Голова уезжает или запрокидывается, плечи ползут к ушам. Если заболело или закружилась голова, остановись.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Шраги</h4><span class="dose">12–15 раз</span></div>
             <p>Гантели в опущенных руках. Поднимай плечи к ушам, задержись на секунду и опусти. Плечами не вращай.</p>
             <p class="why"><b>Зачем пилоту.</b> Трапеции помогают шее держать голову в шлеме.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-a2">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=yDiQhRYRSVM" target="_blank" rel="noopener">Видео <span class="dur">4:08</span></a>
+            </div>
+            <div class="howto" id="how-a2" hidden>
+              <ol class="steps">
+                <li>Встань прямо, стопы на ширине таза. Гантели в опущенных руках по бокам, ладони смотрят к телу.</li>
+                <li>Напряги живот, подбородок держи ровно, смотри вперёд.</li>
+                <li>Подними плечи прямо вверх к ушам. Руки остаются прямыми и расслабленными, как крюки.</li>
+                <li>Наверху задержись на секунду и сожми мышцы между шеей и плечами.</li>
+                <li>Опускай плечи медленно, примерно за две секунды, до самого низа.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Круговые движения плечами. Руки сгибаются в локтях. Голова уходит вперёд или запрокидывается. Корпус раскачивается: значит, вес слишком тяжёлый.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Тяга гантели в наклоне</h4><span class="dose">10–12 на руку</span></div>
             <p>Колено и ладонь на стуле или диване, спина ровная. Тяни гантель к поясу, локоть идёт вдоль тела.</p>
             <p class="why"><b>Зачем пилоту.</b> Спина держит осанку в гоночном ковше и после долгого сидения за компьютером.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-a3">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=HxXPw4WOWpQ&amp;t=205s" target="_blank" rel="noopener">Видео <span class="dur">с 3:25</span></a>
+            </div>
+            <div class="howto" id="how-a3" hidden>
+              <ol class="steps">
+                <li>Поставь левое колено и левую ладонь на стул или диван, ладонь точно под плечом. Правая нога стоит на полу чуть в стороне, колено мягкое.</li>
+                <li>Спина ровная от таза до затылка, почти параллельно полу. Смотри в пол чуть впереди.</li>
+                <li>Возьми гантель правой рукой. Рука висит прямо под плечом.</li>
+                <li>Тяни гантель к поясу: локоть идёт назад и вверх вдоль тела. Наверху сведи лопатку к позвоночнику.</li>
+                <li>Медленно опусти до прямой руки. Сделай все повторы и поменяй сторону.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Корпус разворачивается вслед за гантелью. Спина округляется. Гантель идёт к плечу, а не к поясу. Рывок вместо плавной тяги.</p>
+              <p class="note small">В ролике три варианта, ссылка открывает нужный: с упором коленом в скамью.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Прогулка с одной гантелью</h4><span class="dose">30 с на руку</span></div>
             <p>Возьми самую тяжёлую гантель в одну руку и ходи по комнате. Корпус ровный и не заваливается в сторону веса.</p>
             <p class="why"><b>Зачем пилоту.</b> Корпус сопротивляется боковой перегрузке, как в повороте. Заодно работает хват.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-a4">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=LJaq4BS7KpE" target="_blank" rel="noopener">Видео <span class="dur">4:55</span></a>
+            </div>
+            <div class="howto" id="how-a4" hidden>
+              <ol class="steps">
+                <li>Подними гантель с пола приседом, а не наклоном. Рука с весом прямая, вдоль тела.</li>
+                <li>Встань ровно: плечи на одной высоте, лопатки слегка сведены и опущены. Напряги живот, как перед лёгким тычком в пресс.</li>
+                <li>Иди по комнате спокойным шагом, дыши ровно. Корпус всё время вертикальный.</li>
+                <li>Через 30 секунд присядь, поставь гантель и возьми её другой рукой.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Корпус клонится к гантели или отклоняется от неё. Плечо с весом опускается или поднимается к уху. Гантель раскачивается и бьёт по ноге.</p>
+              <p class="note small">Ролик на английском. Русскую озвучку можно включить в настройках плеера: «Звуковая дорожка».</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Планка на локтях</h4><span class="dose">20–40 с</span></div>
             <p>Тело прямой линией, живот и ягодицы напряжены, поясница не провисает. С 5-й недели считай в планке вслух от 100 вниз через 7.</p>
             <p class="why"><b>Зачем пилоту.</b> Корпус держит тело на торможении и разгоне, а счёт учит думать, когда тяжело.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-a5">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=3v-P5h0fBKg" target="_blank" rel="noopener">Видео <span class="dur">5:13</span></a>
+            </div>
+            <div class="howto" id="how-a5" hidden>
+              <ol class="steps">
+                <li>Встань на колени и поставь локти на пол точно под плечами. Предплечья параллельно друг другу.</li>
+                <li>Отставь ноги назад и встань на носки, стопы на ширине таза.</li>
+                <li>Выстрой тело в прямую линию от пяток до макушки. Втяни живот, сожми ягодицы, слегка подкрути таз под себя.</li>
+                <li>Отталкивай пол предплечьями, чтобы спина между лопатками не проваливалась. Шея продолжает линию спины, смотри в пол.</li>
+                <li>Дыши ровно. Как только поясница начала провисать, подход закончен.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Провисшая поясница. Таз поднят домиком. Голова свисает или задрана. Задержка дыхания.</p>
+            </div>
           </li>
         </ol>
       </article>
@@ -435,31 +522,115 @@ select:disabled{ opacity:.6; }
             <div class="ex-head"><h4>Гоблет-присед</h4><span class="dose">10–12 раз</span></div>
             <p>Держи одну гантель вертикально у груди. Садись глубоко, колени смотрят туда же, куда носки, пятки на полу.</p>
             <p class="why"><b>Зачем пилоту.</b> Сильные ноги держат усилие на педалях всю гонку.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b1">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=3eP9ZkvnH5Y" target="_blank" rel="noopener">Видео <span class="dur">3:07</span></a>
+            </div>
+            <div class="howto" id="how-b1" hidden>
+              <ol class="steps">
+                <li>Возьми гантель вертикально, обхвати ладонями верхний диск и прижми её к груди. Локти смотрят вниз.</li>
+                <li>Стопы чуть шире плеч, носки слегка развёрнуты наружу.</li>
+                <li>Вдохни, напряги живот и садись: таз идёт назад и вниз, колени раздвигаются в сторону носков.</li>
+                <li>Опустись так глубоко, как получается с ровной спиной, в идеале бёдра ниже колен. Локти проходят между коленями.</li>
+                <li>Вставай, толкая пол всей стопой, и выдыхай.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Пятки отрываются от пола. Колени заваливаются внутрь. Спина округляется внизу. Гантель отходит от груди и тянет корпус вперёд.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Румынская тяга</h4><span class="dose">10–12 раз</span></div>
             <p>Гантели перед бёдрами, колени чуть согнуты. Отводи таз назад, гантели скользят вдоль ног до середины голени. Спина прямая всё время.</p>
             <p class="why"><b>Зачем пилоту.</b> Поясница и задняя поверхность бедра выдерживают долгое сидение в ковше.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b2">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=BeTEzsVW2ak" target="_blank" rel="noopener">Видео <span class="dur">2:44</span></a>
+            </div>
+            <div class="howto" id="how-b2" hidden>
+              <ol class="steps">
+                <li>Встань прямо, стопы на ширине таза. Гантели перед бёдрами, ладони смотрят к себе.</li>
+                <li>Чуть согни колени и держи этот угол до конца подхода.</li>
+                <li>Отводи таз назад, будто закрываешь ягодицами дверь за спиной. Корпус наклоняется вперёд с прямой спиной, гантели скользят вдоль ног.</li>
+                <li>Опускайся, пока сзади бедра не потянет сильно, обычно гантели доходят до середины голени. Спина остаётся прямой.</li>
+                <li>Выпрямись, подавая таз вперёд и сжимая ягодицы. Наверху не отклоняйся назад.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Спина округляется. Колени сгибаются всё сильнее, и наклон превращается в присед. Гантели отходят от ног. Прогиб назад в верхней точке.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Выпады назад</h4><span class="dose">8 на ногу</span></div>
             <p>Гантели в опущенных руках. Шаг назад, колено почти касается пола, вернись в стойку.</p>
             <p class="why"><b>Зачем пилоту.</b> Каждая нога работает отдельно, как на педали тормоза.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b3">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=nLEPDUGZ-Yo" target="_blank" rel="noopener">Видео <span class="dur">2:11</span></a>
+            </div>
+            <div class="howto" id="how-b3" hidden>
+              <ol class="steps">
+                <li>Встань прямо, стопы на ширине таза, гантели в опущенных руках.</li>
+                <li>Сделай широкий шаг одной ногой назад и встань на её носок.</li>
+                <li>Опускайся прямо вниз: заднее колено почти касается пола, переднее бедро примерно параллельно полу, переднее колено над стопой.</li>
+                <li>Корпус прямой или чуть наклонён вперёд, вес на передней ноге.</li>
+                <li>Оттолкнись передней пяткой и вернись в стойку. Сделай 8 раз одной ногой, потом 8 другой, или чередуй.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Короткий шаг, из-за которого переднее колено уходит далеко за носок. Переднее колено заваливается внутрь. Удар коленом об пол. Толчок задней ногой вместо передней.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Жим гантелей лёжа на полу</h4><span class="dose">10–12 раз</span></div>
             <p>Лёжа на полу, локти под 45° к телу. Опускай, пока локти не коснутся пола, и выжимай вверх.</p>
             <p class="why"><b>Зачем пилоту.</b> Грудь и плечи крутят руль.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b4">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=95X2MWe-iO8" target="_blank" rel="noopener">Видео <span class="dur">2:54</span></a>
+            </div>
+            <div class="howto" id="how-b4" hidden>
+              <ol class="steps">
+                <li>Сядь на пол, гантели поставь на бёдра. Прижми их к груди и вместе с ними ляг на спину.</li>
+                <li>Колени согни, стопы на полу. Сведи лопатки и прижми их к полу.</li>
+                <li>Выжми гантели вверх над грудью. Ладони смотрят к ногам или друг к другу.</li>
+                <li>Медленно опускай: локти под углом около 45° к телу, пока они мягко не коснутся пола. Задержись на полсекунды без отскока.</li>
+                <li>Выжми вверх, гантели над серединой груди. Выдыхай на подъёме.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> Локти разведены в стороны под прямым углом. Локти бьются об пол. Поясница отрывается. Гантели уходят к лицу. В конце подхода опусти гантели на грудь и перекатись на бок, не роняй их над собой.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Руление</h4><span class="dose">30 с</span></div>
             <p>Возьми блин от гантели или саму гантель за оба края. Руки почти прямые перед собой, поворачивай на 90° влево и вправо в ровном темпе.</p>
             <p class="why"><b>Зачем пилоту.</b> Классическое упражнение гонщиков на выносливость плеч и предплечий.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b5">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=JJqkYsIV3iw" target="_blank" rel="noopener">Видео <span class="dur">0:15</span></a>
+            </div>
+            <div class="howto" id="how-b5" hidden>
+              <ol class="steps">
+                <li>Встань прямо, стопы на ширине плеч, колени мягкие.</li>
+                <li>Возьми блин или гантель за края, как руль: руки на «девять и три часа».</li>
+                <li>Вытяни руки перед собой на уровне груди, локти чуть согнуты.</li>
+                <li>Поворачивай «руль» на 90° влево, затем на 90° вправо, примерно секунда на поворот.</li>
+                <li>Руки всё время на одной высоте, корпус и таз смотрят вперёд.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> К концу подхода руки опускаются. Поворачивается корпус, а не руки. Плечи поднимаются к ушам. Рывки вместо ровного темпа.</p>
+              <p class="note small">Короткий ролик без слов, в нём руление с блином от штанги.</p>
+            </div>
           </li>
           <li>
             <div class="ex-head"><h4>Реакция на пульсе</h4><span class="dose">3 раунда</span></div>
             <p>30 секунд прыжков «звёздочка», сразу после них 30 секунд на реакцию: бросай теннисный мяч в стену и лови разными руками. Подойдёт и тест реакции в телефоне, и линейка, которую роняет напарник. Потом 30 секунд отдыха.</p>
             <p class="why"><b>Зачем пилоту.</b> На трассе решения принимаются на высоком пульсе. Здесь учишься оставаться точным, когда сердце колотится.</p>
+            <div class="ex-tools">
+              <button type="button" class="ex-btn" aria-expanded="false" aria-controls="how-b6">По шагам</button>
+              <a class="ex-btn video" href="https://www.youtube.com/watch?v=pq2KCSZF0vA" target="_blank" rel="noopener">Видео «звёздочки» <span class="dur">4:43</span></a>
+            </div>
+            <div class="howto" id="how-b6" hidden>
+              <ol class="steps">
+                <li>«Звёздочка», 30 секунд. Стопы вместе, руки внизу. Прыжком расставь ноги шире плеч и подними руки над головой, следующим прыжком вернись. Приземляйся мягко на носки.</li>
+                <li>Сразу реакция, 30 секунд. Встань в полутора-двух метрах от стены, бросай теннисный мяч одной рукой и лови другой. Меняй руки, высоту и силу броска.</li>
+                <li>Если мяча нет, сделай 5–10 попыток теста реакции в телефоне. Или пусть напарник держит линейку над твоей раскрытой ладонью и отпускает без предупреждения, а ты ловишь пальцами.</li>
+                <li>Отдохни 30 секунд и начни следующий раунд.</li>
+              </ol>
+              <p class="why"><b>Частые ошибки.</b> На реакции сбавляешь темп, чтобы не промахнуться. Держи скорость, промахи нормальны. В «звёздочке» приземляешься на пятки и прямые ноги.</p>
+            </div>
           </li>
         </ol>
       </article>
@@ -501,11 +672,11 @@ select:disabled{ opacity:.6; }
       <h2 class="section-title" id="stretch">После бега: растяжка</h2>
       <p>Пять минут после Гонки, а если есть время, после каждой тренировки. Каждое положение держи 30 секунд, без рывков.</p>
       <ul class="plain">
-        <li><b>Икры.</b> Руки в стену, нога сзади прямая, пятка на полу.</li>
-        <li><b>Задняя поверхность бедра.</b> Пятка на невысокой опоре, наклон вперёд с ровной спиной.</li>
-        <li><b>Передняя поверхность бедра.</b> Стоя, тяни пятку к ягодице.</li>
-        <li><b>Сгибатели бедра.</b> Выпад с коленом на полу, таз вперёд. Особенно полезно, если много сидишь.</li>
-        <li><b>Грудь.</b> Предплечье на дверной косяк, разворот корпуса в другую сторону.</li>
+        <li><b>Икры.</b> Руки в стену, нога сзади прямая, пятка на полу. <a class="vlink" href="https://www.youtube.com/watch?v=Ev2nbKWsbIg" target="_blank" rel="noopener">Видео 2:07</a></li>
+        <li><b>Задняя поверхность бедра.</b> Пятка на невысокой опоре, наклон вперёд с ровной спиной. <a class="vlink" href="https://www.youtube.com/watch?v=PxLh7HtQa88" target="_blank" rel="noopener">Видео 3:25</a></li>
+        <li><b>Передняя поверхность бедра.</b> Стоя, тяни пятку к ягодице. <a class="vlink" href="https://www.youtube.com/watch?v=ePsipjoT2-8" target="_blank" rel="noopener">Видео 0:38</a></li>
+        <li><b>Сгибатели бедра.</b> Выпад с коленом на полу, таз вперёд. Особенно полезно, если много сидишь. <a class="vlink" href="https://www.youtube.com/watch?v=5VWwX-gxeg8" target="_blank" rel="noopener">Видео 0:35</a></li>
+        <li><b>Грудь.</b> Предплечье на дверной косяк, разворот корпуса в другую сторону. <a class="vlink" href="https://www.youtube.com/watch?v=Jg96t2_U1xs" target="_blank" rel="noopener">Видео 0:21</a></li>
       </ul>
       <p class="callout"><b>Дыхание как на стартовой решётке.</b> Вдох на 4 счёта, задержка на 4, выдох на 4, задержка на 4. Шесть циклов помогают успокоить пульс и голову.</p>
 
@@ -992,6 +1163,14 @@ select:disabled{ opacity:.6; }
   }
   TABS.forEach(function (t) { document.getElementById('tab-' + t).addEventListener('click', function () { showTab(t); }); });
   $$('[data-goto]').forEach(function (b) { b.addEventListener('click', function () { goTo(b.getAttribute('data-goto')); }); });
+  // exercise how-to panels: the button toggles the panel named in aria-controls
+  $$('.ex-btn[aria-controls]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', String(open));
+      document.getElementById(b.getAttribute('aria-controls')).hidden = !open;
+    });
+  });
   $('#tabs').addEventListener('keydown', function (e) {
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
     e.preventDefault();
